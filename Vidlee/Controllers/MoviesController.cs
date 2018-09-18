@@ -5,6 +5,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using Vidlee.Models;
+using Vidlee.ViewModels;
 using String = System.String;
 
 namespace Vidlee.Controllers
@@ -14,9 +15,28 @@ namespace Vidlee.Controllers
         // GET: Movies
         public ActionResult Random()
         {
-            var movie = new Movie() {Name = "Shrek!"};
 
-            return View(movie);
+            var movie = new Movie() {Name = "Shrek!"};
+            var customers = new List<Customer>
+            {
+                new Customer {Name = "Customer 1"},
+                new Customer {Name = "Customer 2"}
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+
+            return View(viewModel);
+        }
+
+       
+
+    public ActionResult ByReleaseDate(int? year, int? month)
+        {
+            return Content(year + "/" + month);
         }
 
         public ActionResult Edit(int id)
